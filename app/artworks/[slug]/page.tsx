@@ -66,14 +66,18 @@ export default function ArtworkDetailPage() {
     },
     offers: {
       '@type': 'Offer',
-      url: artworkUrl,
-      priceCurrency: artwork.currency,
-      price: artwork.price,
-      itemCondition: 'https://schema.org/NewCondition',
-      availability:
-        artwork.availability === 'available'
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/OutOfStock',
+      ...(isSold
+        ? { availability: 'https://schema.org/OutOfStock' }
+        : {
+            url: artworkUrl,
+            priceCurrency: artwork.currency,
+            price: artwork.price,
+            itemCondition: 'https://schema.org/NewCondition',
+            availability:
+              artwork.availability === 'available'
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/OutOfStock',
+          }),
       seller: {
         '@type': 'Organization',
         name: 'La Toile Blanche',
@@ -146,9 +150,11 @@ export default function ArtworkDetailPage() {
             )}
 
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginTop: '12px' }}>
-              <div className="artwork-detail-price">
-                {formatPrice(artwork.price, artwork.currency)}
-              </div>
+              {!isSold && (
+                <div className="artwork-detail-price">
+                  {formatPrice(artwork.price, artwork.currency)}
+                </div>
+              )}
               <div className={`artwork-detail-avail ${isSold ? 'sold' : ''}`}>
                 {isSold
                   ? 'Sold to Private Collection'

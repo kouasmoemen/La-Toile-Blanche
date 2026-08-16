@@ -40,7 +40,9 @@ export const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork, priority = fa
           <div className="artwork-card-artist">{artist?.name || 'Ayoub Awadi'}</div>
           <div className="artwork-card-meta">
             <span className="artwork-card-price">
-              {formatPrice(artwork.price, artwork.currency)}
+              {artwork.availability === 'sold'
+                ? 'Sold Out'
+                : formatPrice(artwork.price, artwork.currency)}
             </span>
             <span className="artwork-card-dim">{artwork.dimensions}</span>
           </div>

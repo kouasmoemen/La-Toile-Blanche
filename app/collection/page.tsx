@@ -39,7 +39,7 @@ export default function CollectionPage() {
             Original Artworks
           </h1>
           <p style={{ color: 'rgba(250, 248, 245, 0.7)', maxWidth: '540px', marginTop: '12px' }}>
-            Browse authentic oil paintings by Ayoub Awadi. Each piece is an original one-of-a-kind physical work accompanied by a Certificate of Authenticity.
+            Browse authentic acrylic paintings by Ayoub Awadi. Each piece is an original one-of-a-kind physical work accompanied by a Certificate of Authenticity.
           </p>
         </div>
       </section>

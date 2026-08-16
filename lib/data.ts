@@ -42,7 +42,7 @@ export const artists: Artist[] = [
     id: 'ayoub-awadi',
     slug: 'ayoub-awadi',
     name: 'Ayoub Awadi',
-    bio: 'A native of Tunisia, Ayoub Awadi is a young painter whose work bridges traditional North African architectural motifs and surreal contemporary expression. Painting with oil pigments on canvas, his compositions explore light, memory, and spatial form — bringing vibrant color out of the dark void.',
+    bio: 'A native of Tunisia, Ayoub Awadi is a young painter whose work bridges traditional North African architectural motifs and surreal contemporary expression. Painting with acrylic pigments on canvas, his compositions explore light, memory, and spatial form — bringing vibrant color out of the dark void.',
     philosophy: 'I see art as an uninhibited language beyond words. Every brushstroke on canvas is a dialogue between shadow and light, heritage and imagination.',
     birthYear: 2010,
     nationality: 'Tunisian',
@@ -56,7 +56,7 @@ export const artists: Artist[] = [
 ];
 
 // ----------------------------------------------------------------
-// Final Product Catalogue — EXACTLY 3 ARTWORKS
+// Product Catalogue
 // ----------------------------------------------------------------
 export const artworks: Artwork[] = [
   {
@@ -67,7 +67,7 @@ export const artworks: Artwork[] = [
     year: 2026,
     price: 200,
     currency: 'TND',
-    medium: 'Oil on canvas',
+    medium: 'Acrylic painting',
     dimensions: '80 × 60 cm',
     widthCm: 60,
     heightCm: 80,
@@ -88,10 +88,10 @@ export const artworks: Artwork[] = [
     year: 2026,
     price: 150,
     currency: 'TND',
-    medium: 'Oil on canvas',
-    dimensions: '70 × 50 cm',
-    widthCm: 50,
-    heightCm: 70,
+    medium: 'Acrylic painting',
+    dimensions: '50 × 40 cm',
+    widthCm: 40,
+    heightCm: 50,
     description: 'A striking canvas painting capturing a warm golden Mediterranean sunset over coastal domes, terracotta roofs, and a distant sailboat.',
     story: 'Inspired by the quiet magic of sunset over the Gulf of Tunis. Warm amber and deep magenta tones blend seamlessly across the sky, setting a solitary sailboat against the tranquil coastal horizon.',
     images: ['/artworks/coucher-soleil.jpg'],
@@ -109,11 +109,11 @@ export const artworks: Artwork[] = [
     year: 2026,
     price: 500,
     currency: 'TND',
-    medium: 'Oil on canvas',
-    dimensions: '100 × 80 cm',
-    widthCm: 80,
-    heightCm: 100,
-    description: 'A grand surreal oil painting of an ancient stone castle with soaring towers, stone bridge, winding river, and vibrant floral banks surrounded by majestic mountain peaks.',
+    medium: 'Acrylic painting',
+    dimensions: '80 × 60 cm',
+    widthCm: 60,
+    heightCm: 80,
+    description: 'A grand surreal acrylic painting of an ancient stone castle with soaring towers, stone bridge, winding river, and vibrant floral banks surrounded by majestic mountain peaks.',
     story: 'A surreal journey into fantasy and architectural memory. High towers and stone arch bridges emerge from lush banks of wildflowers, evoking the quiet mystery of a lost kingdom untouched by time.',
     images: ['/artworks/royaume-oublie.jpg'],
     availability: 'available',
@@ -121,6 +121,27 @@ export const artworks: Artwork[] = [
     tags: ['royaume', 'le royaume oublie', 'surrealism', 'castle', 'landscape', 'mountains', 'river', 'fantasy', 'art'],
     featured: true,
     certificateId: 'LTB-2026-003',
+  },
+  {
+    id: 'eclat-du-bleu-et-de-lor',
+    slug: 'eclat-du-bleu-et-de-lor',
+    title: 'L’Éclat du Bleu et de l’Or',
+    artistId: 'ayoub-awadi',
+    year: 2026,
+    price: 0,
+    currency: 'TND',
+    medium: 'Acrylic painting',
+    dimensions: '90 × 50 cm',
+    widthCm: 50,
+    heightCm: 90,
+    description: 'An original acrylic painting in radiant blue and gold, composed around a graceful floral arrangement.',
+    story: 'Blue blossoms and gilded leaves unfold across a softly luminous ground, creating a balanced study of colour, texture, and botanical form.',
+    images: ['/artworks/jji.jpg'],
+    availability: 'sold',
+    category: 'Floral',
+    tags: ['blue', 'gold', 'floral', 'flowers', 'acrylic', 'botanical'],
+    featured: false,
+    certificateId: 'LTB-2026-004',
   },
 ];
 
@@ -142,7 +163,7 @@ export const journalArticles: JournalArticle[] = [
     id: 'inside-the-studio',
     slug: 'inside-the-studio',
     title: 'Inside the Studio: A Morning with Ayoub Awadi',
-    excerpt: 'A glimpse into the artist studio as oil pigments, heavy textures, and architectural silhouettes take form on raw canvas.',
+    excerpt: 'A glimpse into the artist studio as acrylic pigments, heavy textures, and architectural silhouettes take form on raw canvas.',
     category: 'Studio Visit',
     date: '2026-07-15',
     readTime: '8 min read',
@@ -213,6 +234,7 @@ export function searchArtworks(
     }
 
     // 3. Price Range filter
+    if (priceRange !== 'all' && art.availability === 'sold') return false;
     if (priceRange === 'under-200' && art.price >= 200) return false;
     if (priceRange === '200-500' && (art.price < 200 || art.price > 500)) return false;
     if (priceRange === 'over-500' && art.price <= 500) return false;

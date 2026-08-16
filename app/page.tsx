@@ -36,7 +36,7 @@ export default function HomePage() {
             Art that speaks from the void of space.
           </h1>
           <p className="hero-subtitle">
-            An intimate contemporary gallery exhibiting the raw, expressive original oil paintings of Ayoub Awadi.
+            An intimate contemporary gallery exhibiting the raw, expressive original acrylic paintings of Ayoub Awadi.
           </p>
           <div className="hero-actions">
             <Link href="/collection" className="btn btn-gold btn-large">
@@ -116,7 +116,7 @@ export default function HomePage() {
           <div className="horizontal-scroll-inner">
             <div className="horizontal-scroll-item">
               <video src="/videos/n3.mp4" autoPlay muted loop playsInline />
-              <p>Studio sessions — mixing oil pigments in natural daylight.</p>
+              <p>Studio sessions — mixing acrylic pigments in natural daylight.</p>
             </div>
 
             <div className="horizontal-scroll-item">

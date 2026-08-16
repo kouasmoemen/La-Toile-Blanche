@@ -25,7 +25,7 @@ export default function RootLayout({
     url: 'https://latoileblanche.tn',
     logo: 'https://latoileblanche.tn/artworks/lumiere-sidi-bou-said.jpg',
     description:
-      'La Toile Blanche is an international contemporary art gallery based in Tunisia, offering original hand-painted oil canvases by artist Ayoub Awadi. Powered by depthX studio.',
+      'La Toile Blanche is an international contemporary art gallery based in Tunisia, offering original hand-painted acrylic paintings by artist Ayoub Awadi. Powered by depthX studio.',
     telephone: '+21625515396',
     address: {
       '@type': 'PostalAddress',
@@ -56,11 +56,11 @@ export default function RootLayout({
         <title>La Toile Blanche — Original Artworks &amp; Contemporary Gallery | Tunisia</title>
         <meta
           name="description"
-          content="La Toile Blanche is a contemporary art gallery presenting original hand-painted oil canvases by Tunisian artist Ayoub Awadi. Explore Lumière de Sidi Bou Saïd, Coucher de Soleil Méditerranéen, and Le Royaume Oublié. Direct WhatsApp acquisition."
+          content="La Toile Blanche is a contemporary art gallery presenting original hand-painted acrylic paintings by Tunisian artist Ayoub Awadi. Explore Lumière de Sidi Bou Saïd, Coucher de Soleil Méditerranéen, and Le Royaume Oublié. Direct WhatsApp acquisition."
         />
         <meta
           name="keywords"
-          content="La Toile Blanche, Ayoub Awadi, Tunisian art, original paintings, oil on canvas, art gallery Tunisia, Sidi Bou Saïd, depthX studio, fine art"
+          content="La Toile Blanche, Ayoub Awadi, Tunisian art, original paintings, acrylic painting, art gallery Tunisia, Sidi Bou Saïd, depthX studio, fine art"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
         <meta name="google" content="notranslate" />
@@ -70,7 +70,7 @@ export default function RootLayout({
         <meta property="og:title" content="La Toile Blanche — Original Hand-Painted Artworks" />
         <meta
           property="og:description"
-          content="Contemporary international art gallery featuring original physical oil paintings by Ayoub Awadi. Powered by depthX studio."
+          content="Contemporary international art gallery featuring original physical acrylic paintings by Ayoub Awadi. Powered by depthX studio."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://latoileblanche.tn" />
@@ -82,7 +82,7 @@ export default function RootLayout({
         <meta name="twitter:title" content="La Toile Blanche — Fine Art Gallery" />
         <meta
           name="twitter:description"
-          content="Original hand-painted oil canvases by Ayoub Awadi. Worldwide delivery."
+          content="Original hand-painted acrylic paintings by Ayoub Awadi. Worldwide delivery."
         />
         <meta name="twitter:image" content="https://latoileblanche.tn/artworks/lumiere-sidi-bou-said.jpg" />
 

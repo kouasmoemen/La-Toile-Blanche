@@ -10,7 +10,7 @@ export default function AboutPage() {
           Art is not made by algorithms. It is made by human hands.
         </h1>
         <p>
-          La Toile Blanche is an independent international gallery dedicated to preserving, celebrating, and distributing physical original paintings created with authentic oil pigments and human craftsmanship.
+          La Toile Blanche is an independent international gallery dedicated to preserving, celebrating, and distributing physical original paintings created with authentic acrylic pigments and human craftsmanship.
         </p>
       </section>
 
