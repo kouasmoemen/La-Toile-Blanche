@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>La Toile Blanche | Ayoub Awadi</title>
+    <meta name="description" content="La Toile Blanche - معرض فني عالمي للفنان أيوب عوادي. لوحات سريالية تخرج من سواد الفضاء، برعاية depthX studio.">
+    <meta name="keywords" content="La Toile Blanche, Ayoub Awadi, depthX studio, فن, رسم, لوحات فنية, تونس, معرض فني, سريالية">
+    <meta name="author" content="Moemen Kouas - depthX studio">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================= المتغيرات والإعدادات العامة ================= */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #080808;
+            --text-main: #ffffff;
+            --text-muted: #999999;
+            --accent: #d4af37; 
+            --font-ar: 'Cairo', sans-serif;
+            --font-en: 'Cinzel', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-ar);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* الكلمات الإنجليزية والماركات */
+        .brand-text { font-family: var(--font-en); direction: ltr; display: inline-block; }
+
+        /* ================= مؤشر الماوس ================= */
+        .cursor {
+            position: fixed; top: 0; left: 0; width: 10px; height: 10px;
+            background-color: #fff; border-radius: 50%; pointer-events: none;
+            z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+            mix-blend-mode: difference;
+        }
+        .cursor.hovering {
+            width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid white; mix-blend-mode: normal;
+        }
+        @media (max-width: 768px) { .cursor { display: none; } * { cursor: auto; } }
+
+        /* ================= شاشة التحميل ================= */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; display: flex; justify-content: center; align-items: center;
+            z-index: 10000; transition: opacity 0.8s, visibility 0.8s;
+        }
+        #preloader h1 {
+            font-family: var(--font-en); font-size: 2.5rem; letter-spacing: 10px;
+            text-transform: uppercase; animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* ================= تأثيرات الظهور الانسيابية (Smooth Reveal) ================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ================= رأس الموقع ================= */
+        header {
+            position: absolute; top: 0; width: 100%; padding: 30px 50px;
+            z-index: 20; display: flex; justify-content: center; align-items: center;
+        }
+        header h1 {
+            font-family: var(--font-en); font-size: 1.8rem; letter-spacing: 6px;
+            text-transform: uppercase; font-weight: 700; text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+
+        /* ================= القسم الأول: اللافتة الإعلانية ================= */
+        #showcase {
+            position: relative; width: 100vw; height: 85vh;
+            display: flex; align-items: center; justify-content: center;
+            background: #000; overflow: hidden;
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0) 20%, rgba(0,0,0,1) 95%);
+            z-index: 5; pointer-events: none;
+        }
+        #bg-video {
+            position: absolute; width: 100%; height: 100%; object-fit: cover;
+            mix-blend-mode: screen; opacity: 0.75; transition: opacity 1s ease; z-index: 1;
+        }
+        .hero-content {
+            position: relative; z-index: 10; text-align: center;
+            max-width: 90%; padding: 0 15px;
+        }
+        .top-tag {
+            font-family: var(--font-en); color: var(--accent); font-size: 0.9rem;
+            letter-spacing: 5px; text-transform: uppercase; margin-bottom: 25px;
+            display: block; font-weight: 700;
+        }
+        .hero-content h2 {
+            font-size: 4.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.9); transition: opacity 0.5s ease;
+        }
+        .hero-content p {
+            font-size: 1.3rem; color: #e0e0e0; max-width: 800px; margin: 0 auto;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.9); transition: opacity 0.5s ease;
+            font-weight: 400;
+        }
+
+        /* ================= القسم الثاني: الفنان ================= */
+        #about { padding: 120px 20px; background-color: var(--bg-color); }
+        .about-wrapper { max-width: 800px; margin: 0 auto; text-align: center; }
+        .about-wrapper h2 {
+            font-family: var(--font-en); font-size: 3rem; margin-bottom: 30px; font-weight: 700;
+        }
+        .about-wrapper p {
+            color: var(--text-muted); font-size: 1.25rem; margin-bottom: 60px; font-weight: 400;
+        }
+        .mona-lisa-frame {
+            position: relative; width: 100%; max-width: 320px; aspect-ratio: 3/4;
+            margin: 0 auto; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+        }
+        .mona-lisa-frame img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; transition: opacity 0.3s ease;
+        }
+        .mona-img-surreal { opacity: 0; }
+        .mona-lisa-frame.is-surreal .mona-img-normal { opacity: 0; }
+        .mona-lisa-frame.is-surreal .mona-img-surreal { opacity: 1; }
+
+        /* ================= القسم الثالث: المعرض ================= */
+        #gallery { padding: 100px 20px; background-color: var(--surface-color); }
+        .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 70px; font-weight: 800; }
+        
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto;
+        }
+        
+        .artwork-card {
+            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 25px;
+            border-radius: 12px; text-align: center; transition: transform 0.4s, border-color 0.4s;
+        }
+        .artwork-card:hover { transform: translateY(-12px); border-color: #333; }
+        .artwork-image { width: 100%; border-radius: 8px; margin-bottom: 25px; }
+        .artwork-card h3 { font-family: var(--font-en); font-size: 1.8rem; margin-bottom: 15px; }
+        .artwork-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 20px; }
+        .price { display: block; font-family: var(--font-en); font-size: 1.5rem; margin-bottom: 25px; color: var(--accent); }
+        .buy-btn {
+            background: #fff; color: #000; border: none; padding: 15px 40px;
+            font-size: 1.1rem; font-weight: 800; border-radius: 30px; font-family: var(--font-ar);
+            transition: all 0.3s; width: 100%; max-width: 250px;
+        }
+        .buy-btn:hover { background: #ccc; transform: scale(1.05); }
+
+        /* ================= النافذة المنبثقة ================= */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s;
+        }
+        .modal.show { display: flex; opacity: 1; }
+        .modal-content {
+            background: #0d0d0d; padding: 40px; width: 90%; max-width: 450px;
+            border: 1px solid #222; border-radius: 15px; position: relative;
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; color: #666; transition: 0.3s; }
+        .close-btn:hover { color: #fff; }
+        .modal-content h2 { text-align: center; margin-bottom: 25px; font-size: 1.8rem; }
+        .input-group { margin-bottom: 20px; }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 15px; background: #000; border: 1px solid #333;
+            color: #fff; border-radius: 8px; font-family: var(--font-ar); font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--accent); outline: none; }
+        .submit-btn {
+            background: var(--accent); color: #000; border: none; padding: 15px; width: 100%;
+            font-size: 1.2rem; font-weight: 800; border-radius: 8px; font-family: var(--font-ar);
+            margin-top: 10px; transition: 0.3s;
+        }
+        .submit-btn:hover { background: #fff; }
+
+        /* ================= التذييل ================= */
+        footer { background-color: #000; padding: 80px 20px 30px; border-top: 1px solid #111; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px; max-width: 1100px; margin: 0 auto;
+        }
+        .footer-col h4 { margin-bottom: 20px; font-size: 1.2rem; color: #fff; }
+        .footer-col a {
+            display: block; color: var(--text-muted); text-decoration: none;
+            margin-bottom: 12px; font-size: 1rem; transition: color 0.3s;
+            font-family: var(--font-en);
+        }
+        .footer-col a:hover { color: var(--accent); }
+        .footer-col p { color: var(--text-muted); font-family: var(--font-en); }
+        .footer-bottom { text-align: center; margin-top: 60px; color: #444; font-size: 0.9rem; font-family: var(--font-en); }
+
+        /* ================= التجاوب مع كل الشاشات (Responsive Design) ================= */
+        @media (max-width: 992px) {
+            .hero-content h2 { font-size: 3.5rem; }
+            #showcase { height: 75vh; }
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            header h1 { font-size: 1.4rem; }
+            
+            #showcase { height: 60vh; }
+            .hero-content h2 { font-size: 2.2rem; margin-bottom: 15px; }
+            .hero-content p { font-size: 1.1rem; }
+            .top-tag { font-size: 0.75rem; letter-spacing: 3px; }
+            
+            #about { padding: 80px 20px; }
+            .about-wrapper h2 { font-size: 2.2rem; }
+            .about-wrapper p { font-size: 1.1rem; }
+            
+            .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+            #gallery { padding: 60px 20px; }
+            
+            footer { padding: 50px 20px 20px; text-align: center; }
+            .footer-grid { gap: 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h2 { font-size: 1.8rem; }
+            .hero-content p { font-size: 1rem; }
+            .mona-lisa-frame { max-width: 260px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="custom-cursor"></div>
+
+    <div id="preloader">
+        <h1>La Toile Blanche</h1>
+    </div>
+
+    <header>
+        <h1 class="reveal">La Toile Blanche</h1>
+    </header>
+
+    <section id="showcase">
+        <div class="video-overlay"></div>
+        <video id="bg-video" autoplay muted playsinline></video>
+        
+        <div class="hero-content reveal">
+            <span class="top-tag brand-text">Fine Art Gallery From Tunisia</span>
+            <h2 id="dynamic-title">لوحات تخرج من سواد الفضاء.</h2>
+            <p id="dynamic-subtitle">تجربة فنية مظلمة، أنيقة، وعالمية لعرض أعمال <span class="brand-text">Ayoub Awadi</span> بطريقة تجعل الألوان هي مركز المشهد.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-wrapper">
+            <h2 class="reveal brand-text">Ayoub Awadi</h2>
+            <p class="reveal">
+                فتى يبلغ من العمر 16 عاماً، أمتلك موهبة وشغفاً عميقاً بالرسم. 
+                أرى الفن كلغة تتجاوز الكلمات، ومساحة للتعبير السريالي والحر.
+            </p>
+            
+            <div class="mona-lisa-frame reveal" id="mona-frame">
+                <img src="3adeya.jpg" alt="Mona Lisa Normal" class="mona-img-normal">
+                <img src="mch 3adeya.jpg" alt="Mona Lisa Surreal" class="mona-img-surreal">
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title reveal">المعرض</h2>
+        
+        <div class="gallery-grid">
+            <div class="artwork-card reveal hover-target">
+                <img src="medina.jpg" alt="لوحة المدينة العربي" class="artwork-image">
+                <h3 class="brand-text">المدينة العربي</h3>
+                <p>الحجم: 80×60cm - تفاصيل تحاكي التراث بلمسة سريالية.</p>
+                <span class="price">320 TND</span>
+                <button class="buy-btn hover-target" onclick="openModal('المدينة العربي', '320 TND')">اقتناء اللوحة</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn hover-target" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">تأكيد الطلب</h2>
+            <form id="orderForm">
+                <div class="input-group"><input type="text" id="custName" placeholder="الاسم واللقب" required></div>
+                <div class="input-group"><input type="tel" id="custPhone" placeholder="رقم الهاتف (تونس)" required></div>
+                <div class="input-group"><input type="text" id="custCity" placeholder="الولاية / المدينة" required></div>
+                <div class="input-group"><textarea id="custAddr" placeholder="العنوان بالتفصيل" rows="2" required></textarea></div>
+                <button type="submit" class="submit-btn hover-target">إرسال الطلب عبر واتساب</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid reveal">
+            <div class="footer-col">
+                <h4>عن الفنان</h4>
+                <a href="https://www.instagram.com/latoileblanche.tn/" target="_blank" class="hover-target">Instagram: @latoileblanche.tn</a>
+                <p>Phone: 25 515 396</p>
+            </div>
+            <div class="footer-col">
+                <h4>التطوير والبرمجة</h4>
+                <p>Moemen Kouas</p>
+                <a href="https://www.instagram.com/kouasmoemen/" target="_blank" class="hover-target">Instagram</a>
+                <a href="https://www.facebook.com/moemen.kouas" target="_blank" class="hover-target">Facebook</a>
+                <a href="https://github.com/kouasmoemen" target="_blank" class="hover-target">GitHub</a>
+            </div>
+            <div class="footer-col">
+                <h4>الجهة الداعمة</h4>
+                <p class="brand-text" style="color:#d4af37; font-weight:bold; margin-bottom:10px;">depthX studio</p>
+                <a href="https://www.instagram.com/dep.thx/" target="_blank" class="hover-target">Instagram</a>
+                <a href="https://www.youtube.com/@DEPTHXStudio" target="_blank" class="hover-target">YouTube</a>
+                <a href="https://www.linkedin.com/in/moemen-kouas-b04968306/" target="_blank" class="hover-target">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom reveal">
+            &copy; 2026 La Toile Blanche x depthX studio. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        let selectedPainting = "";
+        let selectedPrice = "";
+
+        // 1. إزالة شاشة التحميل
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 800);
+            }, 800);
+        });
+
+        // 2. مؤشر الماوس
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .hover-target').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // 3. تأثير الظهور الانسيابي المطور (Smooth Reveal)
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { 
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px 0px -40px 0px"
+        });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 4. مشغل الفيديوهات
+        const videoPlayer = document.getElementById('bg-video');
+        const videoList = ['n1.mp4','n2.mp4','n3.mp4','n4.mp4','n5.mp4','n6.mp4','n7.mp4','n8.mp4','n9.mp4','n10.mp4'];
+        let vIndex = 0;
+        videoPlayer.src = videoList[vIndex];
+        videoPlayer.addEventListener('ended', () => {
+            videoPlayer.style.opacity = 0;
+            setTimeout(() => {
+                vIndex = (vIndex + 1) % videoList.length;
+                videoPlayer.src = videoList[vIndex];
+                videoPlayer.play();
+                videoPlayer.style.opacity = 0.75;
+            }, 800);
+        });
+
+        // 5. تغيير النصوص فوق الفيديو
+        const dynamicTexts = [
+            { title: "لوحات تخرج من سواد الفضاء.", sub: "تجربة فنية مظلمة، أنيقة، وعالمية لعرض أعمال Ayoub Awadi بطريقة تجعل الألوان هي مركز المشهد." },
+            { title: "فن ينبض بالحياة في العتمة.", sub: "اكتشف تفاصيل دقيقة وألواناً تتوهج من قلب الظلام اللامتناهي." },
+            { title: "سريالية تتجاوز حدود الواقع.", sub: "حيث يمتزج الخيال بالظلال لنخلق لك تجربة بصرية لا تُنسى." }
+        ];
+        let textIndex = 0;
+        const titleEl = document.getElementById('dynamic-title');
+        const subEl = document.getElementById('dynamic-subtitle');
+        
+        setInterval(() => {
+            titleEl.style.opacity = 0;
+            subEl.style.opacity = 0;
+            setTimeout(() => {
+                textIndex = (textIndex + 1) % dynamicTexts.length;
+                let newSub = dynamicTexts[textIndex].sub.replace("Ayoub Awadi", "<span class='brand-text'>Ayoub Awadi</span>");
+                titleEl.innerHTML = dynamicTexts[textIndex].title;
+                subEl.innerHTML = newSub;
+                titleEl.style.opacity = 1;
+                subEl.style.opacity = 1;
+            }, 500); 
+        }, 5000); 
+
+        // 6. حركة الموناليزا
+        const monaFrame = document.getElementById('mona-frame');
+        setInterval(() => {
+            monaFrame.classList.toggle('is-surreal');
+        }, 500);
+
+        // 7. نظام الشراء عبر الواتساب
+        function openModal(title, price) {
+            selectedPainting = title;
+            selectedPrice = price;
+            document.getElementById('modalTitle').innerText = "اقتناء: " + title;
+            document.getElementById("buyModal").classList.add("show");
+            document.body.style.overflow = "hidden";
+        }
+        function closeModal() {
+            document.getElementById("buyModal").classList.remove("show");
+            document.body.style.overflow = "auto";
+        }
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const city = document.getElementById('custCity').value;
+            const addr = document.getElementById('custAddr').value;
+            const msg = `طلب شراء: ${selectedPainting}%0Aالسعر: ${selectedPrice}%0A%0Aالاسم: ${name}%0Aالهاتف: ${phone}%0Aالمدينة: ${city}%0Aالعنوان: ${addr}`;
+            window.open(`https://wa.me/21625515396?text=${msg}`, '_blank');
+            closeModal();
+        });
+        window.onclick = e => { if (e.target == document.getElementById("buyModal")) closeModal(); }
+    </script>
+</body>
+</html>
