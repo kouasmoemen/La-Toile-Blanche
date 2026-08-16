@@ -74,7 +74,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <ArtworkGrid artworks={featuredArtworks.slice(0, 3)} variant="featured" />
+          <ArtworkGrid artworks={featuredArtworks} variant="featured" />
         </div>
       </section>
 

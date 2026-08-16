@@ -140,7 +140,7 @@ export const artworks: Artwork[] = [
     availability: 'sold',
     category: 'Floral',
     tags: ['blue', 'gold', 'floral', 'flowers', 'acrylic', 'botanical'],
-    featured: false,
+    featured: true,
     certificateId: 'LTB-2026-004',
   },
 ];
